@@ -1,28 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="" href="/app.css">
-    <title>Laravel Blog</title>
-</head>
-
-<body>
+@section('content')
     <h1>Hello laravel!</h1>
 
-    <?php foreach ($posts as $post) : ?>
-    <article>
-        <h1>
-            <a href="/posts/<?= $post->slug ?>">
-                <?= $post->title ?>
-            </a>
-        </h1>
-        <div><?= $post->excerpt ?></div>
-    </article>
-    <?php endforeach; ?>
+    @foreach ($posts as $post)
+        <article>
+            <h1>
+                <a href="/posts/{{ $post->slug }}">
+                    {{ $post->title }}
+                </a>
+            </h1>
 
-</body>
-
-</html>
+            <p>
+                <a href="/categories/{{ $post->category->slug }}"> {{ $post->category->name }}</a>
+            </p>
+            <div>
+                {!! $post->excerpt !!}
+            </div>
+        </article>
+    @endforeach
+@endsection

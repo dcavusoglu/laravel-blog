@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\Category;
+
 
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 /*
@@ -20,8 +22,14 @@ Route::get('/', function () {
     //used onece, so inline is fine
     // $files = File::files(resource_path("posts"));
 
+
+//this below code is to debug logs and see how many fecthes occur
+    // \Illuminate\Support\Facades\DB::listen(function($query) {
+    //     logger($query->sql, $query->bindings);
+    // });
+
     return view('posts', [
-      'posts' => Post::all()
+      'posts' => Post::with('category')->get()
     ]);
 
     // taken to Post.php
@@ -85,9 +93,15 @@ Route::get('/', function () {
 
 
 
-Route::get('posts/{post}', function ($slug) {
+Route::get('posts/{post:slug}', function (Post $post) {
 
   return view('post', [
-    'post' => Post::find($slug)
+    'post' => $post
   ]);
-})->where('post', '[A-z_\-]+');
+});
+
+Route::get('categories/{category:slug}', function (Category $category) {
+    return view('posts', [
+        'posts' => $category->posts
+    ]);
+});
