@@ -20,10 +20,6 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 Route::get('/', function () {
 
-    //used onece, so inline is fine
-    // $files = File::files(resource_path("posts"));
-
-
 //this below code is to debug logs and see how many fecthes occur
     // \Illuminate\Support\Facades\DB::listen(function($query) {
     //     logger($query->sql, $query->bindings);
@@ -31,7 +27,8 @@ Route::get('/', function () {
 
     return view('posts', [
     //   'posts' => Post::latest()->with('category', 'author')->get()
-      'posts' => Post::latest()->get()
+      'posts' => Post::latest()->get(),
+      'categories' => Category::all()
     ]);
 
     // taken to Post.php
@@ -107,7 +104,10 @@ Route::get('categories/{category:slug}', function (Category $category) {
 
         // helpful but more practical to add this to post model without repeating everywhere
         // 'posts' => $category->posts->load(['category', 'author'])
-        'posts' => $category->posts
+        'posts' => $category->posts,
+        'currentCategory' => $category,
+        'categories' => Category::all()
+
     ]);
 });
 
@@ -116,6 +116,8 @@ Route::get('authors/{author:username}', function (User $author) {
     // dd($author);
     return view('posts', [
         // 'posts' => $author->posts->load(['category', 'author'])
-        'posts' => $author->posts
+        'posts' => $author->posts,
+        'categories' => Category::all()
+
     ]);
 });
