@@ -1,7 +1,7 @@
-@extends('layout')
+<x-layout>
+    @include('_posts-header')
 
-@section('content')
-    <h1>Hello laravel!</h1>
+    {{-- <h1>Hello laravel!</h1>
 
     @foreach ($posts as $post)
         <article>
@@ -19,5 +19,22 @@
                 {!! $post->excerpt !!}
             </div>
         </article>
-    @endforeach
-@endsection
+    @endforeach --}}
+
+
+    <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
+        @if ($posts->count())
+            <x-posts-grid :posts="$posts" />
+        @else
+            <p class="text-center">No posts yet. Please check back later.</p>
+        @endif
+
+
+        {{--
+        <div class="lg:grid lg:grid-cols-3">
+            <x-post-card />
+            <x-post-card />
+            <x-post-card />
+        </div> --}}
+    </main>
+</x-layout>
