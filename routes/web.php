@@ -19,75 +19,11 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 */
 
 Route::get('/', function () {
-
-//this below code is to debug logs and see how many fecthes occur
-    // \Illuminate\Support\Facades\DB::listen(function($query) {
-    //     logger($query->sql, $query->bindings);
-    // });
-
     return view('posts', [
-    //   'posts' => Post::latest()->with('category', 'author')->get()
       'posts' => Post::latest()->get(),
       'categories' => Category::all()
     ]);
-
-    // taken to Post.php
-    // $posts = collect(File::files(resource_path("posts")))
-    //     ->map(fn($file) => YamlFrontMatter::parseFile($file))
-    //     ->map(fn($document) => new Post (
-    //         $document->title,
-    //         $document->slug,
-    //         $document->excerpt,
-    //         $document->date,
-    //         $document->body()
-    //     ));
-
-    //collection is a more neat version
-    // $posts = collect(File::files(resource_path("posts")))
-    //     ->map(function($file) {
-    //         $document = YamlFrontMatter::parseFile($file);
-    //         return new Post (
-    //         $document->title,
-    //         $document->slug,
-    //         $document->excerpt,
-    //         $document->date,
-    //         $document->body()
-    //     );
-    // });
-
-
-    //array method
-
-    // $posts = array_map(function($file){
-    //     $document = YamlFrontMatter::parseFile($file);
-    //     return new Post (
-    //         $document->title,
-    //         $document->slug,
-    //         $document->excerpt,
-    //         $document->date,
-    //         $document->body()
-    //     );
-    // }, $files);
-
-
-    // foreach method
-
-    // $posts = [];
-    // foreach ($files as $file) {
-    //     $document = YamlFrontMatter::parseFile($file);
-
-    //     $posts[] = new Post (
-    //         $document->title,
-    //         $document->slug,
-    //         $document->excerpt,
-    //         $document->date,
-    //         $document->body()
-    //     );
-    // }
-
-    // ddd($document->slug);
-
-});
+})->name('home');
 
 
 
