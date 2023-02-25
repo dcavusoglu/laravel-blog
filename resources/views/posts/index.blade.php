@@ -1,5 +1,5 @@
 <x-layout>
-    @include('_posts-header')
+    @include('posts._header')
 
     {{-- <h1>Hello laravel!</h1>
 
